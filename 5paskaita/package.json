@@ -1,0 +1,14 @@
+{
+    "title": "4 codeacademy",
+    "version": "0.1",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.18.1"
+    }
+}
