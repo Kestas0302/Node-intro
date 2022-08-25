@@ -1,0 +1,1 @@
+create table defaultdb.shirt(id int, brand varchar(255), model varchar(255), size varchar(255), price decimal(2), primary key (id));
