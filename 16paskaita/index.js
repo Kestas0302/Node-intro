@@ -65,6 +65,26 @@ app.get("/Cars", async (req, res) => {
 //       console.log(e);
 //     }
 //   });
+app.get("/cars/:id?", async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    if (Number.isInteger(id) || !req.params.id) {
+      const con = await mysql.createConnection(mysqlConfig);
+      const selectAll = "SELECT * FROM Cars";
+      const selectOne = `${selectAll} WHERE id=${id}`;
+      const response = await con.execute(id ? selectOne : selectAll);
+      res.send(response[0]);
+      await con.end();
+    } else {
+      res.status(400).send([]);
+    }
+  } catch (e) {
+    if (e.code === "ER_ACCESS_DENIED_ERROR") {
+      res.status(401).send("Unauthorized");
+    }
+    console.log(e);
+  }
+});
 app.post("/cars", async (req, res) => {
   try {
     const car = req.body;
