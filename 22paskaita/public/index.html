@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <input type="email" placeholder="email" />
+      <input type="password" placeholder="password" />
+      <button type="submit">login</button>
+    </form>
+    <script>
+      document.forms[0].addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // fetch('http://localhost:3000/v1/auth/login', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({
+        //     email: e.target.elements[0].value,
+        //     password: e.target.elements[1].value,
+        //   }),
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     if (data.err) {
+        //       return alert('Incorrect details');
+        //     }
+
+        //     localStorage.setItem('token', data.token);
+        //     alert('Logged in');
+        //   })
+        //   .catch((err) => console.log(err));
+
+        fetch('http://localhost:3000/v1/content', {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((err) => console.log(err));
+      });
+    </script>
+  </body>
+</html>
