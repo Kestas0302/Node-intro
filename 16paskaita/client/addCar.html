@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Car</title>
+    <link rel="stylesheet" href="./styles/style.css" />
+    <script src="addCar.js" defer></script>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="./cars.html">CARS</a></li>
+        <li><a href="./addCar.html" class="active">ADD CAR</a></li>
+      </ul>
+    </nav>
+    <main>
+      <form>
+        <div>
+          <label for="carNumberplates">Numberplate</label>
+          <input
+            type="text"
+            name="carNumberplates"
+            id="carNumberplates"
+            placeholder="ABC123"
+          />
+        </div>
+        <div>
+          <label for="carModel">Model</label>
+          <input
+            type="text"
+            name="carModel"
+            id="carModel"
+            placeholder="BMW 530"
+          />
+        </div>
+        <!-- <div>
+          <label for="carImage">Image</label>
+          <input
+            type="text"
+            name="carImage"
+            id="carImage"
+            placeholder="https://bit.ly/3wy8vbR"
+          />
+        </div> -->
+        <div>
+          <label for="carPrice">Price</label>
+          <input
+            type="number"
+            name="carPrice"
+            id="carPrice"
+            step="00.01"
+            placeholder="53000"
+          />
+        </div>
+        <button type="submit">Add Car</button>
+        <!-- <div class="inputStatus hidden"></div> -->
+      </form>
+    </main>
+  </body>
+</html>

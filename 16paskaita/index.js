@@ -1,20 +1,13 @@
 const express = require("express");
-
+const cors = require("cors");
 const mysql = require("mysql2/promise");
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(express.json());
+app.use(cors());
+
 const mysqlConfig = {
-  //   host: "mysql-vigi26-do-user-12295532-0.b.db.ondigitalocean.com",
-
-  //   user: "doadmin",
-
-  //   password: "AVNS_IbR-HYhM9qDG9WmsypG",
-
-  //   database: "products",
-
-  //   port: "25060",
   host: process.env.MY_SQL_HOST,
 
   user: process.env.MY_SQL_USER,
@@ -37,7 +30,7 @@ app.get("/", async (req, res) => {
     console.log(e);
   }
 });
-app.get("/Cars", async (req, res) => {
+app.get("/cars", async (req, res) => {
   try {
     const con = await mysql.createConnection(mysqlConfig);
     const responce = await con.execute("Select * From auto_park.Cars;");
@@ -89,15 +82,13 @@ app.post("/cars", async (req, res) => {
   try {
     const car = req.body;
 
-    if (car.title && car.image && car.price && car.numberplate) {
+    if (car.title && car.price && car.numberplate) {
       const con = await mysql.createConnection(mysqlConfig);
 
       const response = await con.execute(
-        `INSERT INTO Cars (title, image, price, numberplate) values (${con.escape(
+        `INSERT INTO Cars (title, price, numberplate) values (${con.escape(
           car.title
-        )}, ${con.escape(car.image)}, ${con.escape(car.price)}, ${con.escape(
-          car.numberplate
-        )})`
+        )}, ${con.escape(car.price)}, ${con.escape(car.numberplate)})`
       );
 
       res.send(response[0]);
@@ -111,15 +102,17 @@ app.post("/cars", async (req, res) => {
   }
 });
 app.delete("/Cars/:id", async (req, res) => {
-    try {
-      const con = await mysql.createConnection(mysqlConfig);
-      const responce = await con.execute(`Delete * From auto_park.Cars Where id=${req.params.id};`);
-      await con.end();
-      res.send(responce[0]);
-    } catch (e) {
-      console.log(e);
-    }
-  });
+  try {
+    const con = await mysql.createConnection(mysqlConfig);
+    const responce = await con.execute(
+      `Delete  From auto_park.Cars Where id=${req.params.id};`
+    );
+    await con.end();
+    res.send(responce[0]);
+  } catch (e) {
+    console.log(e);
+  }
+});
 app.get("*", (req, res) => {
   res.status(404).send("Page not found :(");
 
